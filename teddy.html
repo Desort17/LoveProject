@@ -6,13 +6,14 @@
 
 <style>
   body {
-    background: linear-gradient(#ffe6f0, #fff);
+    background: linear-gradient(#ffd6e8, #fff);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    font-family: Arial, sans-serif;
+    font-family: "Segoe UI", sans-serif;
     text-align: center;
+    overflow: hidden;
   }
 
   .teddy {
@@ -21,48 +22,116 @@
   }
 
   @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
+    0%,100% { transform: translateY(0); }
     50% { transform: translateY(-25px); }
   }
 
-  .speech {
+  .box {
     background: white;
-    padding: 18px 22px;
+    padding: 25px;
     border-radius: 20px;
-    margin-top: 15px;
-    font-size: 18px;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-    animation: show 2s forwards;
-    opacity: 0;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    max-width: 320px;
   }
 
-  @keyframes show {
+  h2 {
+    margin-bottom: 15px;
+  }
+
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  button:hover {
+    transform: scale(1.1);
+  }
+
+  .yes {
+    background: #ff4d88;
+    color: white;
+  }
+
+  .no {
+    background: #ccc;
+  }
+
+  .quote {
+    margin-top: 15px;
+    font-size: 18px;
+    opacity: 0;
+    animation: fadeIn 2s forwards;
+  }
+
+  @keyframes fadeIn {
     to { opacity: 1; }
   }
 
-  .heart {
-    font-size: 24px;
-    animation: pulse 1.5s infinite;
+  .hearts {
+    position: fixed;
+    top: -10px;
+    font-size: 20px;
+    animation: fall 5s linear infinite;
   }
 
-  @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.4); }
-    100% { transform: scale(1); }
+  @keyframes fall {
+    to {
+      transform: translateY(110vh);
+      opacity: 0;
+    }
   }
 </style>
 </head>
 
 <body>
 
-<div>
+<div class="box" id="box">
   <div class="teddy">🧸</div>
+  <h2>Do you love me?</h2>
 
-  <div class="speech">
-    Do you love me, <b>sweetheart</b>?  
-    <div class="heart">❤️</div>
-  </div>
+  <button class="yes" onclick="yesLove()">Yes ❤️</button>
+  <button class="no" onclick="noLove()">No 💔</button>
 </div>
+
+<script>
+function yesLove() {
+  document.getElementById("box").innerHTML = `
+    <div class="teddy">🧸❤️</div>
+    <div class="quote">
+      “In a world full of chances,<br>
+      my heart chose you every time.”
+    </div>
+  `;
+  heartRain();
+}
+
+function noLove() {
+  document.getElementById("box").innerHTML = `
+    <div class="teddy">🧸🥺</div>
+    <div class="quote">
+      It’s okay…<br>
+      Teddy still loves you 💔
+    </div>
+  `;
+}
+
+function heartRain() {
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "hearts";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 5000);
+  }, 300);
+}
+</script>
 
 </body>
 </html>
