@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Teddy Love</title>
+
+<style>
+  body {
+    background: linear-gradient(#ffe6f0, #fff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+
+  .teddy {
+    font-size: 120px;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-25px); }
+  }
+
+  .speech {
+    background: white;
+    padding: 18px 22px;
+    border-radius: 20px;
+    margin-top: 15px;
+    font-size: 18px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    animation: show 2s forwards;
+    opacity: 0;
+  }
+
+  @keyframes show {
+    to { opacity: 1; }
+  }
+
+  .heart {
+    font-size: 24px;
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+    100% { transform: scale(1); }
+  }
+</style>
+</head>
+
+<body>
+
+<div>
+  <div class="teddy">🧸</div>
+
+  <div class="speech">
+    Do you love me, <b>sweetheart</b>?  
+    <div class="heart">❤️</div>
+  </div>
+</div>
+
+</body>
+</html>
