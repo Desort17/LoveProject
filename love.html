@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Do You Love Me?</title>
+
+<style>
+:root{
+  --accent:#ff2e63;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at top, #1a1a1a, #000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  color: #fff;
+}
+
+.container {
+  text-align: center;
+  background: rgba(0,0,0,0.6);
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(255,46,99,0.35);
+  border: 1px solid rgba(255,46,99,0.3);
+}
+
+h1 {
+  color: var(--accent);
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+.buttons {
+  margin-top: 30px;
+  position: relative;
+  height: 130px;
+}
+
+button {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 40px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#yesBtn {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 0 25px rgba(255,46,99,0.6);
+}
+
+#noBtn {
+  background: #111;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  position: absolute;
+  left: 55%;
+}
+
+#yesBtn:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 40px rgba(255,46,99,0.9);
+}
+
+.heart {
+  position: fixed;
+  font-size: 18px;
+  color: var(--accent);
+  animation: float 5s linear forwards;
+}
+
+@keyframes float {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-700px); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Background Music (replace music.mp3 with your own file) -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container" id="box">
+  <h1>🖤 A Question From My Heart 🖤</h1>
+  <p id="questionText"></p>
+
+  <div class="buttons">
+    <button id="yesBtn">Yes 🖤</button>
+    <button id="noBtn">No 😈</button>
+  </div>
+</div>
+
+<script>
+/* ✏️ CHANGE NAME HERE */
+const NAME = "Rena";
+
+/* 🎵 MUSIC AUTOPLAY AFTER FIRST CLICK */
+document.body.addEventListener("click", () => {
+  document.getElementById("bgMusic").play();
+},{ once:true });
+
+document.getElementById("questionText").innerHTML =
+  `Do you love me, <b>${NAME}</b>?`;
+
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const box = document.getElementById("box");
+
+noBtn.addEventListener("mouseover", () => {
+  const x = Math.random() * 220 - 110;
+  const y = Math.random() * 100;
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+yesBtn.addEventListener("click", () => {
+  box.innerHTML = `
+    <h1>🖤 Then you are mine 🖤</h1>
+    <p>
+      Love is not gentle.<br>
+      It is obsession, devotion, fire.<br><br>
+      My heart doesn’t ask anymore —<br>
+      it already belongs to you, <b>${NAME}</b>.<br><br>
+      Forever isn’t a promise…<br>
+      it’s a fact. 🖤
+    </p>
+  `;
+  startHearts();
+});
+
+function startHearts(){
+  setInterval(()=>{
+    const h = document.createElement("div");
+    h.className="heart";
+    h.innerHTML="🖤";
+    h.style.left=Math.random()*window.innerWidth+"px";
+    h.style.bottom="0px";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),5000);
+  },250);
+}
+</script>
+
+</body>
+</html>
