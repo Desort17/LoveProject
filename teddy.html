@@ -5,98 +5,108 @@
 <title>Teddy Love</title>
 
 <style>
-  body {
-    <audio id="loveSong" loop>
-  <source src="love.mp3" type="audio/mpeg">
-</audio>
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at top, #2b0036, #050008);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI", sans-serif;
+  overflow: hidden;
+  color: #fff;
+}
 
-    background: linear-gradient(#ffd6e8, #fff);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: "Segoe UI", sans-serif;
-    text-align: center;
-    overflow: hidden;
-  }
+.container {
+  background: rgba(0,0,0,0.6);
+  padding: 30px;
+  border-radius: 25px;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(255,0,100,0.4);
+  max-width: 330px;
+}
 
-  .teddy {
-    font-size: 120px;
-    animation: bounce 2s infinite;
-  }
+.teddy {
+  font-size: 120px;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px #ff4d88);
+}
 
-  @keyframes bounce {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-25px); }
-  }
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-25px); }
+}
 
-  .box {
-    background: white;
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    max-width: 320px;
-  }
+h2 {
+  margin: 15px 0;
+  font-weight: 500;
+}
 
-  h2 {
-    margin-bottom: 15px;
-  }
+button {
+  padding: 12px 25px;
+  border-radius: 25px;
+  border: none;
+  margin: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-  button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    font-size: 16px;
-    margin: 5px;
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
+.yes {
+  background: #ff2d75;
+  color: white;
+  box-shadow: 0 0 15px #ff2d75;
+}
 
-  button:hover {
-    transform: scale(1.1);
-  }
+.no {
+  background: #444;
+  color: #ccc;
+}
 
-  .yes {
-    background: #ff4d88;
-    color: white;
-  }
+button:hover {
+  transform: scale(1.1);
+}
 
-  .no {
-    background: #ccc;
-  }
+.quote {
+  font-size: 18px;
+  margin-top: 15px;
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+}
 
-  .quote {
-    margin-top: 15px;
-    font-size: 18px;
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.heart {
+  position: fixed;
+  top: -20px;
+  font-size: 22px;
+  animation: fall 6s linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(120vh) scale(1.5);
     opacity: 0;
-    animation: fadeIn 2s forwards;
   }
+}
 
-  @keyframes fadeIn {
-    to { opacity: 1; }
-  }
-
-  .hearts {
-    position: fixed;
-    top: -10px;
-    font-size: 20px;
-    animation: fall 5s linear infinite;
-  }
-
-  @keyframes fall {
-    to {
-      transform: translateY(110vh);
-      opacity: 0;
-    }
-  }
+.glow {
+  text-shadow: 0 0 10px #ff4d88, 0 0 20px #ff4d88;
+}
 </style>
 </head>
 
 <body>
 
-<div class="box" id="box">
+<audio id="music" loop>
+  <source src="love.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container" id="box">
   <div class="teddy">🧸</div>
-  <h2>Do you love me?</h2>
+  <h2 class="glow">Do you love me?</h2>
 
   <button class="yes" onclick="yesLove()">Yes ❤️</button>
   <button class="no" onclick="noLove()">No 💔</button>
@@ -104,13 +114,15 @@
 
 <script>
 function yesLove() {
-  document.getElementById("loveSong").play();
+  document.getElementById("music").play();
 
   document.getElementById("box").innerHTML = `
     <div class="teddy">🧸❤️</div>
-    <div class="quote">
-      “In a world full of chances,<br>
-      my heart chose you every time.”
+    <div class="quote glow">
+      In every lifetime,<br>
+      in every universe,<br>
+      my heart would still<br>
+      find its way to you.
     </div>
   `;
   heartRain();
@@ -121,20 +133,19 @@ function noLove() {
     <div class="teddy">🧸🥺</div>
     <div class="quote">
       It’s okay…<br>
-      Teddy still loves you 💔
+      love doesn’t disappear 💔
     </div>
   `;
 }
 
 function heartRain() {
   setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = "hearts";
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    document.body.appendChild(heart);
-
-    setTimeout(() => heart.remove(), 5000);
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = "❤️";
+    h.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 6000);
   }, 300);
 }
 </script>
