@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Heart Door</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at top, #2a0036, #050008);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI", serif;
+  color: #fff;
+  overflow: hidden;
+}
+
+.scene {
+  text-align: center;
+  background: rgba(0,0,0,0.6);
+  padding: 30px;
+  border-radius: 25px;
+  box-shadow: 0 0 40px rgba(255,0,100,0.5);
+  max-width: 360px;
+}
+
+.door {
+  font-size: 90px;
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from { filter: drop-shadow(0 0 10px #ff4d88); }
+  to { filter: drop-shadow(0 0 30px #ff4d88); }
+}
+
+.question {
+  font-size: 20px;
+  margin: 15px 0;
+}
+
+button {
+  padding: 12px 25px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+  margin: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.yes {
+  background: #ff2d75;
+  color: white;
+  box-shadow: 0 0 15px #ff2d75;
+}
+
+.no {
+  background: #444;
+  color: #ccc;
+  position: relative;
+}
+
+.quote {
+  font-size: 18px;
+  margin-top: 15px;
+  opacity: 0;
+  animation: fade 2s forwards;
+}
+
+@keyframes fade {
+  to { opacity: 1; }
+}
+
+.heart {
+  position: fixed;
+  top: -20px;
+  font-size: 22px;
+  animation: fall 6s linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(120vh);
+    opacity: 0;
+  }
+}
+
+.characters {
+  font-size: 70px;
+  margin-top: 15px;
+  animation: rise 2s forwards;
+}
+
+@keyframes rise {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="scene" id="scene">
+  <div class="door">🚪❤️</div>
+  <div class="question">
+    Do you want to knock on my heart’s door?
+  </div>
+
+  <button class="yes" onclick="openDoor()">Yes ❤️</button>
+  <button class="no" onmouseover="runAway(this)">No 💔</button>
+</div>
+
+<script>
+function runAway(btn) {
+  btn.style.left = Math.random() * 200 - 100 + "px";
+  btn.style.top = Math.random() * 100 - 50 + "px";
+}
+
+function openDoor() {
+  document.getElementById("music").play();
+
+  document.getElementById("scene").innerHTML = `
+    <div class="characters">🧑‍🤝‍🧑</div>
+    <div class="quote">
+      “I didn’t fall in love gently.<br>
+      I fell like stars fall—<br>
+      burning, inevitable,<br>
+      destined to light only your sky.”
+    </div>
+  `;
+
+  heartRain();
+
+  setTimeout(finalScene, 6000);
+}
+
+function heartRain() {
+  setInterval(() => {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = "❤️";
+    h.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 6000);
+  }, 300);
+}
+
+function finalScene() {
+  document.getElementById("scene").innerHTML = `
+    <div class="characters">🧑❤️👩</div>
+    <div class="quote">
+      “Every love story ends somewhere…<br>
+      Ours begins here.” 💋
+    </div>
+  `;
+}
+</script>
+
+</body>
+</html>
